@@ -87,7 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
         draw();
     }
 
-    let timerId = setInterval(moveDown,700);
+    let timerId = setInterval(moveDown,800);
 
     function control(e) {
         if(e.keyCode === 37) {
@@ -114,7 +114,7 @@ document.addEventListener('DOMContentLoaded', () => {
             random = Math.floor(Math.random() * 7);
             randomColor = Math.floor(Math.random()*7);
             current = thetetromino[random][currentRotation];
-            currentPosition = Math.floor(Math.random() * 17);
+            currentPosition = 8;
             draw();
         }
     }
