@@ -11,7 +11,22 @@
      <body>
           <div class="container">
                <h3>Score : <span id="score">0</span></h3>
-               <button id="start-game">Start/Pause</button>
+               <button type="button" class="btn btn-primary" id="start-game" href="#">Start/Pause</button>
+          </div>
+          <div class="container mt-4" id="playArea">
+               <div class="grid" id="boxes">        
+               </div>
           </div>
      </body>
+     <script>
+          var x ="", i;
+          for (i=1; i<=600; i++) {
+            x = x + "<div></div>";
+          }
+          for(i=1;i<=20;i++) {
+               x = x + "<div class='taken'></div>";
+          }
+          document.getElementById("boxes").innerHTML = x;
+          
+     </script>
 </html>
