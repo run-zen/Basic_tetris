@@ -1,17 +1,40 @@
 body {
-    background-color: aquamarine;
+    background-image: url("img/james-lee-G8gbh8N2Lsc-unsplash.jpg");
+    background-size: cover;
+    background-blend-mode: darken;
+    margin-top: 20px;
 }
 #gameArea {
     display: flex;
     flex-direction: left;
 }
 
+#playArea {
+    border: 5px solid rgb(75, 100, 207);
+    border-radius: 5px;
+}
+
+.scoreCard {
+    font-size: 50px;
+    font-weight: 600;
+    text-align: center;
+    border-radius: 5px;
+    width: 250px;
+    height: 80px;
+    margin-left: 30px;
+    margin-top: 40px;
+    color: aliceblue;
+}
+
+.mini-grid {
+    margin-left: 90px;
+}
 .grid {
     width: 400px;
     height: 600px;
     display: flex;
     flex-wrap: wrap;
-    background-color: lightblue;
+    background-color: aqua;
     border-radius: 5px;
 }
 
