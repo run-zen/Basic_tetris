@@ -4,7 +4,10 @@ document.addEventListener('DOMContentLoaded', () => {
     let squares = Array.from(document.querySelectorAll('.grid div'));
     const displayScore = document.querySelector('#score');
     const startBtn = document.querySelector('#start-game');
+    const newGameBtn = document.querySelector('#new-game');
     const upNextSquares = Array.from(document.querySelectorAll('.upNext div'));
+
+    let timerId = null;
 
     const jtetromino = [
         [1,width+1,width*2+1,width*2],
@@ -92,7 +95,6 @@ document.addEventListener('DOMContentLoaded', () => {
         })
     }
 
-    drawNext();
 
     function undrawNext() {
         next.forEach(index => {
@@ -110,7 +112,6 @@ document.addEventListener('DOMContentLoaded', () => {
         draw();
     }
 
-    let timerId = setInterval(moveDown,800);
 
     function control(e) {
         if(e.keyCode === 37) {
@@ -207,4 +208,22 @@ document.addEventListener('DOMContentLoaded', () => {
             draw();
         }
     }
+
+    function startGame() {
+        if(timerId) {
+            clearInterval(timerId);
+            timerId = null;
+        }
+        else {
+            draw();
+            timerId = setInterval(moveDown, 800);
+            drawNext();
+        }
+    }
+
+    startBtn.addEventListener('click', startGame)   
+
+    newGameBtn.addEventListener('click', () => {
+        window.location.reload('refresh');
+    })
 })
