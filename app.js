@@ -4,13 +4,13 @@ document.addEventListener('DOMContentLoaded', () => {
     let squares = Array.from(document.querySelectorAll('.grid div'));
     const displayScore = document.querySelector('#score');
     const startBtn = document.querySelector('#start-game');
-    console.log(width, squares); 
-    
+    const upNextSquares = Array.from(document.querySelectorAll('.upNext div'));
+
     const jtetromino = [
-        [1,width+1,width*2+1,2],
-        [width,width+1,width+2,width*2+2],
         [1,width+1,width*2+1,width*2],
-        [0,width,width+1,width+2]
+        [0,width,width+1,width+2],
+        [1,width+1,width*2+1,2],
+        [width,width+1,width+2,width*2+2]
     ];
 
     const stetromino = [
@@ -59,13 +59,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const thetetromino = [jtetromino,stetromino,itetromino,ztetromino,ltetromino,ttetromino,otetromino];
     let currentPosition = 8;
+    let nextRotation = 0;
     let currentRotation = 0;
+    let nextposition = 1;
 
+    let prev = Math.floor(Math.random() * 7);
     let random = Math.floor(Math.random() * 7);
     let randomColor = Math.floor(Math.random() * 7);
-
+    let prevColor  = Math.floor(Math.random() * 7);
 
     let current = thetetromino[random][currentRotation];
+    let next = thetetromino[prev][nextRotation];
 
     function draw() {
         current.forEach(index => {
@@ -79,7 +83,26 @@ document.addEventListener('DOMContentLoaded', () => {
         })
     }
     
-    
+    function drawNext() {
+        next.forEach(index => {
+            let m = index%width;
+            let n = (index- m)/width;
+            index = index - n*width + (n+1)*6;
+            upNextSquares[nextposition +index].classList.add(colors[prevColor]);
+        })
+    }
+
+    drawNext();
+
+    function undrawNext() {
+        next.forEach(index => {
+            let m = index%width;
+            let n = (index- m)/width;
+            index = index - n*width + (n+1)*6;
+            upNextSquares[nextposition + index].classList.remove(colors[prevColor]);
+        })
+    }
+
     function moveDown() {
         freeze();
         undraw();
@@ -111,11 +134,19 @@ document.addEventListener('DOMContentLoaded', () => {
             current.forEach(index => squares[currentPosition + index].classList.add('taken'));
 
             // start new tetromino
-            random = Math.floor(Math.random() * 7);
-            randomColor = Math.floor(Math.random()*7);
+            undrawNext();
+            random = prev;
+            prev = Math.floor(Math.random() * 7);
+            randomColor = prevColor;
+            prevColor = Math.floor(Math.random()*7);
+            currentRotation = nextRotation;
+            nextRotation = Math.floor(Math.random() * 4)
+            next = thetetromino[prev][nextRotation];
             current = thetetromino[random][currentRotation];
             currentPosition = 8;
+            console.log(prevColor,randomColor);
             draw();
+            drawNext();
         }
     }
 
