@@ -150,9 +150,27 @@ document.addEventListener('DOMContentLoaded', () => {
         let temp = thetetromino[random][(currentRotation+1)%4];
         
         let isRotatable = temp.some(index => squares[currentPosition + index].classList.contains('taken'));
+        let rightBreak,leftBreak, move = 0;
+        if(current.some(index => (currentPosition+index)%width > 17)) {
+            rightBreak = temp.some(index => (currentPosition+index)%width < 13);
+            while(rightBreak) {
+                move--;
+                rightBreak = temp.some(index => (currentPosition+index + move)%width < 13);
+            }
+        }
+        else if(current.some(index => (currentPosition+index)%width < 2)){
+            leftBreak = temp.some(index => (currentPosition+index)%width > 6);
+            while(leftBreak) {
+                move++;
+                leftBreak = temp.some(index => (currentPosition+index + move)%width > 6);
+            }
+        }
+
+        
 
         if(!isRotatable) {
             undraw();
+            currentPosition += move
             currentRotation = (currentRotation+1)%4;
             current = thetetromino[random][currentRotation];
             draw();
