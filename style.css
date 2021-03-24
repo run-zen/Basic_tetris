@@ -9,9 +9,21 @@ body {
     flex-direction: left;
 }
 
-#playArea {
-    border: 5px solid rgb(75, 100, 207);
-    border-radius: 5px;
+.gameTitle {
+    text-align: center;
+    margin-left: 100px;
+}
+
+.title {
+    color: rgb(31, 228, 202);
+    font-size: 90px;
+    font-weight: 800;
+}
+
+.createrMessage {
+    color: rgb(255, 255, 255);
+    font-size: 30px;
+    font-weight: 600;
 }
 
 .scoreCard {
@@ -35,7 +47,7 @@ body {
     display: flex;
     flex-wrap: wrap;
     background-color: aqua;
-    border-radius: 5px;
+    border-radius: 4px;
 }
 
 .grid div {

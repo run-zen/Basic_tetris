@@ -249,6 +249,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if(current.some(index => squares[currentPosition+index].classList.contains('taken'))) {
             clearInterval(timerId);
             current = null;
+            playMusic();
             alert("Game Over! \nYou scored : " + score);
 
         }
