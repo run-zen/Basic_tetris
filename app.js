@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const startBtn = document.querySelector('#start-game');
     const newGameBtn = document.querySelector('#new-game');
     const upNextSquares = Array.from(document.querySelectorAll('.upNext div'));
-
+    let score = 0;
     let timerId = null;
 
     const jtetromino = [
@@ -145,9 +145,10 @@ document.addEventListener('DOMContentLoaded', () => {
             next = thetetromino[prev][nextRotation];
             current = thetetromino[random][currentRotation];
             currentPosition = 8;
-            console.log(prevColor,randomColor);
+            gameOver();
             draw();
             drawNext();
+            addScore();
         }
     }
 
@@ -226,4 +227,30 @@ document.addEventListener('DOMContentLoaded', () => {
     newGameBtn.addEventListener('click', () => {
         window.location.reload('refresh');
     })
+
+    function addScore() {
+        for(let i=0;i<599;i+= width) {
+            const row = [i,i+1,i+2,i+3,i+4,i+5,i+6,i+7,i+8,i+9,i+10,i+11,i+12,i+13,i+14,i+15,i+16,i+17,i+18,i+19];
+            if(row.every(index => squares[index].classList.contains('taken'))) {
+                score += 10;
+                displayScore.innerHTML = score;
+                row.forEach(index => {
+                    squares[index].classList.remove('taken');
+                    squares[index].classList.remove(...colors);
+                })
+                const removedSquares = squares.splice(i,width);
+                squares = removedSquares.concat(squares);
+                squares.forEach(cell => grid.append(cell));
+            }
+        }
+    }
+
+    function gameOver() {
+        if(current.some(index => squares[currentPosition+index].classList.contains('taken'))) {
+            clearInterval(timerId);
+            current = null;
+            alert("Game Over! \nYou scored : " + score);
+
+        }
+    }
 })
