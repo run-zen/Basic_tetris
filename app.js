@@ -36,9 +36,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const ltetromino = [
         [1,width+1,width*2+1,width*2+2],
-        [width,width+1,width+2,2],
-        [1,2,width+2,width*2+2],
-        [width,width+1,width+2,width*2]
+        [width,width+1,width+2,width*2],
+        [0,1,width+1,width*2+1],
+        [width,width+1,width+2,2]
     ];
 
     const ttetromino = [
