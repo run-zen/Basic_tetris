@@ -253,4 +253,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
         }
     }
+    //music
+    let myMusic = new Audio('music/theme.mp3');
+    const musicBtn = document.querySelector('#musicBtn');
+    let playing = false;
+    myMusic.loop = true;
+    musicBtn.innerHTML = "Music Off";
+    function playMusic() {
+        if(playing) {
+            myMusic.pause();
+            playing = !playing;
+            musicBtn.innerHTML = "Music Off";
+        }
+        else {
+            myMusic.play();
+            myMusic.loop = true;
+            playing = !playing;
+            musicBtn.innerHTML = "Music On";
+        }
+    }
+
+    musicBtn.addEventListener('click', playMusic);
 })
