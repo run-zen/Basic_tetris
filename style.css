@@ -48,11 +48,15 @@ body {
     flex-wrap: wrap;
     background-color: aqua;
     border-radius: 4px;
+    box-sizing: border-box;
 }
 
 .grid div {
-    width: 20px;
-    height: 20px;
+    width: 40px;
+    height: 40px;
+     /*background-color: red;*/
+    /*border: 1px solid red;*/
+    box-sizing: border-box;
 } 
 
 .upNext {

@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const width = 20;
+    const width = 10;
     const grid  = document.querySelector('.grid');
     let squares = Array.from(document.querySelectorAll('.grid div'));
     const displayScore = document.querySelector('#score');
@@ -17,23 +17,23 @@ document.addEventListener('DOMContentLoaded', () => {
     ];
 
     const stetromino = [
-        [width+1,width+2,width*2,width*2+1],
-        [1,width+1,width+2,width*2+2],
-        [width+1,width+2,width*2,width*2+1],
-        [1,width+1,width+2,width*2+2]
+        [1, 2,width,width +1],
+        [0,width,width+1,width*2+1],
+        [1, 2,width,width +1],
+        [0,width,width+1,width*2+1],
     ];
 
     const itetromino = [
-        [2,width+2,width*2+2,width*3+2],
-        [width*2,width*2+1,width*2+2,width*2+3],
-        [2,width+2,width*2+2,width*3+2],
-        [width*2,width*2+1,width*2+2,width*2+3]
+        [0,width,width*2,width*3],
+        [0, 1, 2, 3],
+        [0,width,width*2,width*3],
+        [0, 1, 2, 3],
     ];
 
     const ztetromino = [
-        [width,width+1,width*2+1,width*2+2],
+        [0, 1,width +1,width +2],
         [1,width+1,width,width*2],
-        [width,width+1,width*2+1,width*2+2],
+        [0, 1,width +1,width +2],
         [1,width+1,width,width*2]
     ];
 
@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
     ];
 
     const ttetromino = [
-        [width,width+1,width+2,width*2+1],
+        [0, 1, 2,width+1],
         [width,width+1,1,width*2+1],
         [width,width+1,1,width+2],
         [width*2+1,width+1,1,width+2]
@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const colors = ['red','green','blue','brown','yellow','orange','purple']
 
     const thetetromino = [jtetromino,stetromino,itetromino,ztetromino,ltetromino,ttetromino,otetromino];
-    let currentPosition = 8;
+    let currentPosition = 4;
     let nextRotation = 0;
     let currentRotation = 0;
     let nextposition = 1;
@@ -144,7 +144,7 @@ document.addEventListener('DOMContentLoaded', () => {
             nextRotation = Math.floor(Math.random() * 4)
             next = thetetromino[prev][nextRotation];
             current = thetetromino[random][currentRotation];
-            currentPosition = 8;
+            currentPosition = 4;
             gameOver();
             draw();
             drawNext();
@@ -184,11 +184,12 @@ document.addEventListener('DOMContentLoaded', () => {
         
         let isRotatable = temp.some(index => squares[currentPosition + index].classList.contains('taken'));
         let rightBreak,leftBreak, move = 0;
-        if(current.some(index => (currentPosition+index)%width > 17)) {
-            rightBreak = temp.some(index => (currentPosition+index)%width < 13);
+        console.log({current, currentPosition})
+        if(current.some(index => (currentPosition+index)%width > 7)) {
+            rightBreak = temp.some(index => (currentPosition+index)%width < 3);
             while(rightBreak) {
                 move--;
-                rightBreak = temp.some(index => (currentPosition+index + move)%width < 13);
+                rightBreak = temp.some(index => (currentPosition+index + move)%width < 3);
             }
         }
         else if(current.some(index => (currentPosition+index)%width < 2)){
@@ -229,8 +230,8 @@ document.addEventListener('DOMContentLoaded', () => {
     })
 
     function addScore() {
-        for(let i=0;i<599;i+= width) {
-            const row = [i,i+1,i+2,i+3,i+4,i+5,i+6,i+7,i+8,i+9,i+10,i+11,i+12,i+13,i+14,i+15,i+16,i+17,i+18,i+19];
+        for(let i=0;i<150;i+= width) {
+            const row = [i,i+1,i+2,i+3,i+4,i+5,i+6,i+7,i+8,i+9];
             if(row.every(index => squares[index].classList.contains('taken'))) {
                 score += 10;
                 displayScore.innerHTML = score;
